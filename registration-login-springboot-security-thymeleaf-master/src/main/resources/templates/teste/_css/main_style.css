@@ -1,0 +1,338 @@
+@charset "UTF-8"
+
+@font-face
+{
+    font-family: 'RobotoRegular';
+    src: url("../_fonts/Roboto-Regular.ttf");
+}
+
+body
+{
+    font-family: 'RobotoRegular', sans-serif;
+}
+
+
+nav.mainMenu li
+{  
+    font-size: 10pt;
+}
+
+
+/* Call to Action Button */
+.call_to_action
+{
+    width: 250px;
+    height: 45px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: white;
+    font-weight: 200;
+    background: transparent;
+    border: 2px solid white;
+    font-size: 12pt;
+}
+
+
+
+.h2_services
+{
+    font-size: 5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/*
+@media screen and (max-width: 468px) 
+{
+    .call_to_action
+    {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 568px) 
+{
+    .call_to_action
+    {
+        display: none;
+    }
+}
+*/
+
+
+@media screen and (max-width: 920px) 
+{
+    .call_to_action
+    {
+        /*margin-top: 40px;*/
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 1024px) 
+{
+    .call_to_action
+    {
+        margin-top: 0px;
+    }
+}
+
+
+.rev_cleaner
+{
+    top: 0px;
+    padding: 0px;
+    margin: 0px;
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+/* Section About */
+section#about
+{
+    background: #ffffff; 
+}
+
+
+section#about h3, p
+{
+    color: #404042;
+    /*text-shadow: 0px 0px white; */
+}
+
+
+
+/*Gallery Configs */
+section#gallery-view
+{
+    margin-top: -87px;
+    padding-top: 250px;
+}
+
+
+div#gallery
+{
+    margin-top: -100px;
+    padding-bottom: 60px;
+}
+
+
+/* Services Section */
+.services
+{
+    background: #2c3036;
+}
+
+.services p, h3, h4
+{
+    font-family: 'RobotoRegular', sans-serif;
+    color: rgb(209, 207, 207);
+}
+
+.fh5co-icon
+{
+    /*border: 1px solid white;*/
+    box-sizing: border-box;
+}
+
+.img_services
+{
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Footer Content */
+.widget p, h1, h2, h3
+{
+    color: rgb(209, 207, 207);
+}
+
+
+.widget
+{
+    padding-bottom: 100px;
+}
+
+/**/
+.copyPera
+{
+    font-family: 'RobotoRegular', sans-serif;
+    font-weight: bold;
+    color: #404042;
+    font-size: 10pt;
+}
+
+
+/* Main */
+div#main 
+{
+    padding: 0;
+}
+
+
+div#main .inner 
+{
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+
+/* Image */
+.image 
+{
+    position: relative;
+    border-radius: 4px;
+    display: inline-block;    
+}
+
+.image img 
+{
+    display: block;
+    box-sizing: border-box;
+}
+
+
+.image.left 
+{
+    float: left;
+    padding: 0 1.5em 1em 0;
+    top: 0.25em;
+}
+
+.image.right
+{
+    float: right;
+    padding: 0 0 1em 1.5em;
+    top: 0.25em;
+}
+
+
+.image.left, .image.right 
+{
+    max-width: 40%;
+}
+
+
+.image.left img, .image.right img
+{
+    width: 100%;
+}
+
+
+
+
+.image.fit 
+{
+    display: block;
+    margin: 0 0 2em 0;
+    width: 100%;
+}
+
+.image.fit img 
+{
+    width: 100%;
+}
+
+.image.main 
+{
+    display: block;
+    margin: 0 0 3em 0;
+    width: 100%;
+}
+
+.image.main img
+{
+    width: 100%;
+}
+
+
+
+
+
+/* Services Area */
+#fh5co-services, #fh5co-about, #fh5co-contact
+{
+    padding: 7em 0;
+}
+
+
+@media screen and (max-width: 768px) 
+{
+    #fh5co-services, #fh5co-about, #fh5co-contact
+    {
+      padding: 4em 0;
+    }
+}
+
+
+#fh5co-services .fh5co-number 
+{
+    font-size: 30px;
+    color: #66D37E;
+    position: relative;
+    padding-top: 10px;
+    font-style: italic;
+    display: -moz-inline-stack;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+}
+
+
+#fh5co-services .fh5co-number:before 
+{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 3px;
+    top: 0;
+    left: 0;
+    background: #66D37E;
+}
+
+
+#fh5co-services .fh5co-icon 
+{
+    margin-bottom: 30px;
+    margin-top: 50px;
+    position: relative;
+    display: -moz-inline-stack;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+}
+
+
+@media screen and (max-width: 768px) 
+{
+    #fh5co-services .fh5co-icon 
+    {
+        margin-top: 0px;
+        float: none;
+    }
+}
+
+
+#fh5co-services .fh5co-icon i 
+{
+    font-size: 200px;
+    color: #66D37E;
+}
+
+
+@media screen and (max-width: 768px) 
+{
+    #fh5co-services .fh5co-icon i 
+    {
+        font-size: 100px;
+    }
+}

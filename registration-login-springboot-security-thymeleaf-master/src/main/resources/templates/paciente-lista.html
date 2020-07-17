@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Contact List</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <h1>Contact List</h1>
+        
+        <div>
+            <nobr>
+                <a th:href="@{/pacientes/add}">Add Contact</a> |
+                <a th:href="@{/}">Back to Index</a>
+            </nobr>
+        </div>
+        <br/><br/>
+        <div>
+            <table border="1">
+                <tr>
+                    <th>Nome</th>
+                    <th>Apelido</th>
+                    <th>Email</th>
+                    <th>Documento</th>
+                    <th>NumDocumento</th>
+                    <th>Conjuge</th>
+                    <th>TelfConjuge</th>
+                    <th>Editar</th>
+                </tr>
+                <tr th:each ="paciente : ${pacientes}">
+                    <td><a th:href="@{/pacientes/{pacienteId}(pacienteId=${paciente.id})}" th:utext="${paciente.nome}">...</a></td>
+                    <td th:utext="${paciente.apelido}">...</td>
+                    <td th:utext="${paciente.email}">...</td>
+                    <td th:utext="${paciente.documento}">...</td>
+                    <td th:utext="${paciente.num_doc}">...</td>
+                    <td th:utext="${paciente.conjuge}">...</td>
+                    <td th:utext="${paciente.telfConjuge}">...</td>
+                    <td><a th:href="@{/pacientes/{pacienteId}/edit(pacienteId=${paciente.id})}">Editar</a></td>
+                </tr>
+            </table>          
+        </div>
+        <br/><br/>
+        <div>
+            <nobr>
+                <span th:if="${hasPrev}"><a th:href="@{/pacientes?page={prev}(prev=${prev})}">Prev</a>&nbsp;&nbsp;&nbsp;</span> 
+                <span th:if="${hasNext}"><a th:href="@{/pacientes?page={next}(next=${next})}">Next</a></span>
+            </nobr>
+        </div>
+    </body>
+</html>

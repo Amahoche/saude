@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"
+    th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+
+<title>Registo</title>
+</head>
+<body>
+
+   <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span> <span>
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span>
+                        class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" th:href="@{/registration}">Register or Login</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+                    
+                         <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                      </li>
+                     <!--   <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" 
+    aria-haspopup="true" aria-expanded="false">Services</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="teste">Agendar consulta</a>
+      <br>
+      <a class="dropdown-item" href="#">About</a>
+      <a class="dropdown-item" href="#">Contacts</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Galeria</a>
+    </div>-->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br>
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+                <div th:if="${param.success}">
+                    <div class="alert alert-info">Consulta agendada com sucesso!
+                        </div>
+                </div>
+
+                <h3>Agendar Consulta</h3>
+               <form th:action="@{/consulta}" method="post">
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="validationDefault01">Consulta</label>
+      <input type="text" class="form-control" id="validationDefault01" placeholder="Consulta" name="consulta" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationDefault02">Evolucao</label>
+      <input type="text" class="form-control" id="validationDefault02" placeholder="Evolucao" name="evolucao" required>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="validationDefaultUsername">Material Utilizado</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend2"></span>
+        </div>
+        <input type="text" class="form-control" id="validationDefaultUsername" placeholder="Material Utilizado" name="materialUtil" 
+        aria-describedby="inputGroupPrepend2" required>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="validationDefault03">Valor Material</label>
+      <input type="text" class="form-control" id="validationDefault03" placeholder="ValorMaterial" name="valorMaterial" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="validationDefault04">Valor Total</label>
+      <input type="text" class="form-control" id="validationDefault04" placeholder="ValorTotal" name="valorTotal" required>
+    </div>
+    <!--<div class="col-md-3 mb-3">
+      <label for="validationDefault05">Email</label>
+      <input type="text" class="form-control" id="validationDefault05" placeholder="Email" required>
+    </div>-->
+  </div>  
+  <div class="form-row">
+   
+ 
+  
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+      <label class="form-check-label" for="invalidCheck2">
+       Eu concordo com os termos e condicoes!
+      </label>
+    </div>
+  </div>
+  </div>
+
+
+                    <div class="form-group">
+                          <button class="btn btn-primary" type="submit">Agendar</button>
+                        <span> Ja esta Registado? <a href="/" th:href="@{/login}">Login
+                                Aqui</a></span>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    
+   
+
+    <script type="text/javascript"
+        th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript"
+        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</body>
+</html>
