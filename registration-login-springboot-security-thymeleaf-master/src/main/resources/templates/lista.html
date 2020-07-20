@@ -24,6 +24,7 @@
             <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nome</th>
                     <th>Apelido</th>
                     <th>Email</th>
@@ -36,7 +37,7 @@
                 </thead>
                 <tbody>
                 <tr th:each ="paciente : ${pacientes}">
-                     <!--<td><a th:href="@{/pacientes/{pacienteId}(pacienteId=${paciente.id})}" th:utext="${paciente.nome}">...</a></td> -->
+                     <td><a th:href="@{/pacientes/{pacienteId}(pacienteId=${paciente.id})}">...</a></td> 
                     <td><span th:text="${paciente.nome}"></span></td>
                       <td><span th:text="${paciente.apelido}"></span></td>
                        <td><span th:text="${paciente.email}"></span></td>
@@ -44,7 +45,8 @@
                       <td><span th:text="${paciente.num_doc}"></span></td>
                        <td><span th:text="${paciente.conjuge}"></span></td>
                       <td><span th:text="${paciente.telfConjuge}"></span></td>
-                 <td><a th:href="@{/paciente/{pacientenome}/editar(pacientenome=${paciente.nome})}">Editar</a></td>
+                 <!--<td><a th:href="${(#mvc.url('PEp#deletarPaciente').arg(0, paciente.id)).build()}">Deletar</a></td>-->
+                 <td><a th:href="@{/editarpaciente(pacientenome=${paciente.nome})}">Editar</a></td>
                 </tr>
                 </tbody>
             </table>  

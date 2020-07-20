@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import net.javaguides.springboot.springsecurity.error.ResourceNotFoundException;
 import net.javaguides.springboot.springsecurity.model.Funcionario;
+import net.javaguides.springboot.springsecurity.model.Paciente;
 import net.javaguides.springboot.springsecurity.repository.FuncionarioRepository;
 
 @RestController
@@ -29,12 +31,13 @@ public class FuncionarioEndpoint {
 		this.dao = dao;
 	}
 	
-	
-	@GetMapping
+	@GetMapping(value="/listarFuncionarios")
 	@ResponseStatus(HttpStatus.OK)
-	public String listar(){
-		dao.findAll();
-		return "worker";
+	public ModelAndView lista() {
+		ModelAndView mv= new ModelAndView("list");
+		Iterable<Funcionario> funcionarios= dao.findAll();
+		mv.addObject("funcionarios", funcionarios);
+		return mv;
 	}
 		
 	@GetMapping(path = "/findById/{id}")

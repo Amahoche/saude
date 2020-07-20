@@ -7,9 +7,9 @@
     </head>
     <body>
         <h1 th:text="${add} ? 'Create a Paciente:' : 'Edit a Paciente:'" />
-        <a th:href="@{/lista}">Voltar a Lista</a>
+        <a th:href="@{/paciente/listarPacientes}">Voltar a Lista</a>
         <br/><br/>
-        <form th:action="${add} ? @{/pacientes/add} : @{/pacientes/{pacienteId}/edit(pacienteId=${paciente.id})}"
+        <form th:action="${add} ? @{/pacientes/add} : @{/pacientes/{pacienteId}/editar(pacienteId=${paciente.id})}"
               th:object="${paciente}" method="POST">
             <table border="0">
                 <tr th:if="${paciente.nome}">

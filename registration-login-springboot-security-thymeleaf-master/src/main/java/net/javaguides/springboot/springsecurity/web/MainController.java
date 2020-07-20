@@ -39,10 +39,6 @@ public class MainController {
     public String consulta() {
         return "form";
     }
-   /** @GetMapping(value="/pacientes")
-    public String listapacientes() {
-        return "pacientes";
-    }**/
     @GetMapping("/lista")
     public String pacientes() {
         return "lista";

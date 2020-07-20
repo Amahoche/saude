@@ -1,21 +1,19 @@
 package net.javaguides.springboot.springsecurity.web;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +23,7 @@ import net.javaguides.springboot.springsecurity.model.Paciente;
 import net.javaguides.springboot.springsecurity.repository.PacienteRepository;
 
 
+
 @RestController
 @RequestMapping("/paciente")
 public class PacienteEndpoint {
@@ -32,7 +31,7 @@ public class PacienteEndpoint {
 	 
     private final int ROW_PER_PAGE = 5;
  
-	
+    @Autowired
 	//private PacienteService ps;
 	
 	private final PacienteRepository dao;
@@ -40,34 +39,8 @@ public class PacienteEndpoint {
 	public PacienteEndpoint(PacienteRepository dao) {
 		this.dao = dao;
 	}
-	
-	
-	//@GetMapping
-	//@ResponseStatus(HttpStatus.OK)
-	/**public String listar(){
-		dao.findAll();
-		return "tester";
-	}**/
-	/** @GetMapping(value = "/pacientes")
-   public String getPacientes(Model model,
-            @RequestParam(value = "page", defaultValue = "1") int pageNumber) {
-        List<Paciente> pacientes = ps.findAll(pageNumber, ROW_PER_PAGE);
-     
-       /** ModelAndView mv= new ModelAndView("lista");
-		Iterable<Paciente> paciente= dao.findAll();
-		mv.addObject("pacientes", pacientes);
-		
-        long count = ps.count();
-        boolean hasPrev = pageNumber > 1;
-        boolean hasNext = (pageNumber * ROW_PER_PAGE) < count;
-        model.addAttribute("pacientes", pacientes);
-        model.addAttribute("hasPrev", hasPrev);
-        model.addAttribute("prev", pageNumber - 1);
-        model.addAttribute("hasNext", hasNext);
-        model.addAttribute("next", pageNumber + 1);
-        return "listaup
-    }**/
-	@GetMapping
+
+	@GetMapping(value="/listarPacientes")
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView lista() {
 		ModelAndView mv= new ModelAndView("lista");
@@ -76,7 +49,7 @@ public class PacienteEndpoint {
 		return mv;
 	}
 		
-	@GetMapping(value = "/findById/{id}")
+	/**@GetMapping(value = "/findById/{id}")
 	public ResponseEntity<?> getPacienteById(@PathVariable("id") Long id){
 		Optional<Paciente> paciente = dao.findById(id);
 		verifyIfPacienteExists(id);
@@ -87,12 +60,41 @@ public class PacienteEndpoint {
 	public ResponseEntity<?> findPacienteByNome(@PathVariable String nome){
 		return new ResponseEntity<>(dao.findByNomeIgnoreCaseContaining(nome), HttpStatus.OK);
 	}
-	
+	**/
+	 
+    /**@GetMapping(value = {"/editar"})
+    public String showEditContact(Model model, @PathVariable long pacientetId) {
+        Paciente paciente = null;
+        try {
+            paciente = ps.findById(pacientetId);
+        } catch (ResourceNotFoundException ex) {
+            model.addAttribute("errorMessage", "Paciente nao Encontrado");
+        }
+        model.addAttribute("add", false);
+        model.addAttribute("paciente", paciente);
+        return "editarpaciente";
+    }
+     
+    @PostMapping(value = {"/editar"})
+    public String updateContact(Model model,
+            @PathVariable long pacienteId,
+            @ModelAttribute("paciente") Paciente paciente) {        
+        try {
+            paciente.setId(pacienteId);
+            ps.update(paciente);
+            return "redirect:/teste/" + String.valueOf(paciente.getId());
+        } catch (Exception ex) {
+            // log exception first, 
+            // then show error
+            String errorMessage = ex.getMessage();
+            logger.error(errorMessage);
+            model.addAttribute("errorMessage", errorMessage);
+     
+             model.addAttribute("add", false);
+            return "editarpaciente";
+        }}**/
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	//public ResponseEntity<?> save(@RequestBody Student student){
-	//return new ResponseEntity<>(dao.save(student), HttpStatus.OK)};
-	
 	public String adicionar (Paciente paciente) {
 			dao.save(paciente);
 			return "dashboard";
@@ -106,29 +108,25 @@ public class PacienteEndpoint {
 		
 		return "redirect:/{id}";
 	}**/
-	@DeleteMapping(path = "/{id}")
+	
+	@DeleteMapping
+	@GetMapping(value="/deletar")
 	@ResponseStatus(HttpStatus.OK)
-	public String delete(@PathVariable Long id){
-	verifyIfPacienteExists(id);
-	dao.deleteById(id);
-	return "pacienteLista";
+	public String deletarPaciente( Long id){
+	Optional<Paciente> paciente = dao.findById(id);
+	dao.delete(paciente);
+	return "redirect:/paciente/listarPacientes";
 		
 	}
 	
-	@PutMapping
+/**@PutMapping
 	@ResponseStatus(HttpStatus.OK)
 	public String update(Paciente paciente){
 	verifyIfPacienteExists(paciente.getId());
 	dao.save(paciente);
-	return "pacienteEdtitar";
-		
-	}
-	//METODO PARA VERIFICACAO DA EXISTENCIA DA PESSOA E LANCAMENTO DE ERROS!
-	private void verifyIfPacienteExists(Long id) {
-		if(dao.findById(id) == null) {
-			throw new ResourceNotFoundException("Pessoa nao encontrada para o ID: "+id);
-			
-			}
-	}
+	return "redirect:/paciente/listarPacientes";**/
+	
+	
+	
 
 }
