@@ -1,93 +1,58 @@
 package com.projecto.saude.Models;
 
-import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 
-//import lombok.Getter;
-//import lombok.Setter;
+import com.projecto.saude.Repository.PacienteFiltro;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Validated
 @Entity
-//@Getter
-//@Setter
-public class Paciente implements Serializable {
-	public static final long serialVersionUID=1L;
+@Getter
+@Setter
+@DiscriminatorValue(value = "Paciente")
+public class Paciente extends Pessoa{
 
-
-	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	private long id;
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Paciente other = (Paciente) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-	private String nome;
-	private String apelido;
-	private String email;
-	private String documento;
-	private String numDoc;
-	//private String dataNasc;
 	private String conjuge;
 	private String telfConjuge;
-
-	public Long getId() {
-		return id;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Medicamento> medicamentos;
+	public List<Medicamento> getMedicamentos() {
+		return medicamentos;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setMedicamentos(List<Medicamento> medicamentos) {
+		this.medicamentos = medicamentos;
 	}
-	public String getNome() {
-		return nome;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Exame> exames;
+	public List<Exame> getExames() {
+		return exames;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setExames(List<Exame> exames) {
+		this.exames = exames;
 	}
-	public String getApelido() {
-		return apelido;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "pacientes")
+			
+	private Set<Consulta> consultas;
+	
+	public Set<Consulta> getConsultas() {
+		return consultas;
 	}
-	public void setApelido(String apelido) {
-		this.apelido = apelido;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getDocumento() {
-		return documento;
-	}
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
-	public String getNumDoc() {
-		return numDoc;
-	}
-	public void setNumDoc(String numDoc) {
-		this.numDoc = numDoc;
+	public void setConsultas(Set<Consulta> consultas) {
+		this.consultas = consultas;
 	}
 	public String getConjuge() {
 		return conjuge;

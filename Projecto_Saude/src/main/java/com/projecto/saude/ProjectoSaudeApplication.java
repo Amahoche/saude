@@ -1,7 +1,9 @@
 package com.projecto.saude;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @SpringBootApplication
 public class ProjectoSaudeApplication {
@@ -9,5 +11,7 @@ public class ProjectoSaudeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectoSaudeApplication.class, args);
 	}
+
+	
 
 }

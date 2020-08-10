@@ -41,17 +41,39 @@
             </nobr>
         </div>
         <br/><br/>
-        <div  class="container my-2"> 
-               <h3>Lista dos Pacientes</h3>
-               <a th:href="@{/teste}" class="btn btn-primary btn-sm mb-3">Adicionar Paciente</a>
+       
+               
+               
+                <br/>
+               
+                 <br>
+                    <br>
+              <div class="panel panel-default" style="margin:10px">
+                 <!-- FORM DE PESQUISA -->
+                <form th:action="@{/paciente/pesquisaPaciente}" class="form-inline" method="POST" style="margin: 20px 0">
+                <div class="form-group">
+                <input type="text" class="form-control"
+                        placeholder="Qual nome deseja?" name="nomepesquisa"/>
+                
+                 <input type="submit" value="Buscar" class="btn btn-primary">
+              </div>
+                </form>
+                <!-- FORM PESQUISA END -->
+              <div class="panel-heading">
+                <h3>Lista dos Pacientes</h3>
+                <a th:href="@{/teste}" class="btn btn-primary btn-sm mb-3">Adicionar Paciente</a>
                 <a th:href="@{/}" class="btn btn-primary btn-sm mb-3" >Home</a><br><br>
-            <table border="1" class= "table table-striped table-reponsive-md">
+              </div>
+              <div class="panel-body">
+            <table  class= "table ">
             <thead>
                 <tr>
                    
                     <th>Nome</th>
                     <th>Apelido</th>
                     <th>Email</th>
+                    <th>DataNascimento</th>
+                    <th>Sexo</th>
                     <th>Documento</th>
                     <th>NumDocumento</th>
                     <th>Conjuge</th>
@@ -65,48 +87,44 @@
                     <td><span th:text="${paciente.nome}"></span></td>
                       <td><span th:text="${paciente.apelido}"></span></td>
                        <td><span th:text="${paciente.email}"></span></td>
+                       <td><span th:text="${paciente.dataNasc}"></span></td>
+                       <td><span th:text="${paciente.sexo}"></span></td>
                       <td><span th:text="${paciente.documento}"></span></td>
                       <td><span th:text="${paciente.numDoc}"></span></td>
                        <td><span th:text="${paciente.conjuge}"></span></td>
                       <td><span th:text="${paciente.telfConjuge}"></span></td>
-                  <td ><a th:href="@{/paciente/updatePaciente/{id}(id=${paciente.id})}" class="btn btn-primary btn-sm mb-3">Editar</a>
-                        <a th:href="@{/paciente/deletePaciente/{id}(id=${paciente.id})}" class="btn btn-danger btn-sm mb-3">Apagar</a>
+                  <td ><a th:href="@{/paciente/updatePaciente/{id}(id=${paciente.id})}" class="btn btn-info btn-sm mb-3"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a th:href="@{/paciente/deletePaciente/{id}(id=${paciente.id})}" class="btn btn-danger btn-sm mb-3"><span class="glyphicon glyphicon-trash"></span></a>
                  
                   </td>
                         
                 </tr>
                 </tbody>
-            </table> 
-            <!-- PAGINATION --> 
-            <div th:if = "${totalPages > 1}" >
-		            <div class="row col-sm-10">
-		                   <div class="row col-sm-2">
-		                      Total Rows: [[${totalItems}]]
-		                   </div>
-		                    <div class="row col-sm-1">
-		                    <span th:each="${#numbers.sequence(1, totalPages)}">
-		                    <a th:if="${currentPage != i}" th:href="@{'/page' +${i}}">[[${i}]]</a>
-		                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
-		                    
-		                    </span>
-		                    
-		                    </div>
-		                     <div class="row col-sm-1">
-		                     <a th:if="${currentPage < totalPages}" th:href="@{'/page' + ${currentPage + 1}}">Next</a>
-		                     <span th:unless="${currentPage < totalPages}">Next</span>
-		                     </div>
-		                     
-		                     <div class="row col-sm-1">
-                             <a th:if="${currentPage < totalPages}" th:href="@{'/page' + ${totalPages}}">Last</a>
-                             <span th:unless="${currentPage < totalPages}">Last</span>
-                             </div>
-		            
-		            </div>
-            
-            
+            </table>
             </div>
+            </div> 
+            <!-- PAGINATION --> 
+              <div class="col-sm-12  text-center" th:if="${not pagina.vazia}">
+            <nav>
+                <ul class="pagination  pagination-sm" th:with="paginaAtual=${pagina.atual}">
+                    <li th:class="${pagina.primeira} ? disabled">
+                        <a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag"><span>&laquo;</span></a>
+                    </li>
+
+                    <th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p - 1}">
+                        <li th:class="${paginaAtual == numeroPagina} ? active">
+                            <a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
+                        </li>
+                    </th:block>                     
+
+                    <li th:class="${pagina.ultima} ? disabled">
+                        <a th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag"><span>&raquo;</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div> 
                     
-        </div>
+        
         <br/><br/>
          
       

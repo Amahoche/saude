@@ -1,10 +1,13 @@
 package com.projecto.saude.service;
 
+import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 
 import com.projecto.saude.Models.Paciente;
+import com.projecto.saude.Repository.PacienteFiltro;
 
 public interface PacienteService {
 //LIST ALL
@@ -17,5 +20,8 @@ public interface PacienteService {
 	void deletePacienteById(long id);
 	//PAGINATION
 	Page<Paciente> findPaginated(int pageNo, int pageSize);
+	//FILTRO
+	public Page<Paciente> filtrar(PacienteFiltro filtro, Pageable pageable);
+	//Optional<Paciente> getByNomeIgnoreCaseContaining(String nome);
 
 }

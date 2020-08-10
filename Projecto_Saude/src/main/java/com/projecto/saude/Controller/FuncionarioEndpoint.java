@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.projecto.saude.Models.Funcionario;
+import com.projecto.saude.Models.Paciente;
 import com.projecto.saude.Repository.FuncionarioRepository;
 import com.projecto.saude.service.FuncionarioService;
 
@@ -48,6 +49,7 @@ public class FuncionarioEndpoint {
 		model.addAttribute("funcionario", funcionario);
 		return "worker";
 	}
+//SAVE FUNCIONARIO
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public String adicionar (Funcionario funcionario) {
@@ -61,18 +63,14 @@ public class FuncionarioEndpoint {
     	ps.savePaciente(paciente);
 			return "redirect:/dashboard";
 			}**/
-    //UPDATE
-    
-    @GetMapping(value="/updateFuncionario/{id}")
- 	@ResponseStatus(HttpStatus.OK)
-	public String editar(@PathVariable (value = "id") long id, Model model) {
-		
-		//GET PACIENTE FROM SERVICE
-		Funcionario funcionario = fs.getFuncionarioById(id);
-		//SET PACIENTE AS MODEL ATTRIBUTE TO PRE-POPULATE FORM
-		model.addAttribute("funcionario", funcionario);
-		return "redirect:/updateFuncionario";
-	}
+//UPDATE
+		@GetMapping(value="/updateFuncionario/{id}")
+		public ModelAndView editar(@PathVariable("id") long id) {
+			Funcionario funcionario=fs.getFuncionarioById(id);
+			ModelAndView mv =new ModelAndView("updateFuncionario");
+			mv.addObject("funcionario", funcionario);
+			return mv;
+		}
 //DELETE
     
     @GetMapping(value="/deleteFuncionario/{id}")
@@ -82,7 +80,7 @@ public class FuncionarioEndpoint {
     	this.fs.deleteFuncionarioById(id);
     	return "redirect:/paciente/listarFuncionarios";
 }
-   //PAGINATION METHOD 
+//PAGINATION METHOD 
     @GetMapping(value="/page/{pageNo}")
     public String findPaginated(@PathVariable (value= "pageNo") int pageNo, Model model) {
     	int pageSize = 5;

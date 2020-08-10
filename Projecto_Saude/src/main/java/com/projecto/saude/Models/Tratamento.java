@@ -23,27 +23,8 @@ public class Tratamento  implements Serializable{
 	@GeneratedValue(strategy= GenerationType.AUTO)
 
 	private long id;
-	
-	 @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Tratamento other = (Tratamento) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-	private String nome;
-	 private Double valorConsulta;
+	private String dataInicio;
+	private String dataFim;
+	private String problema;
+	private String evolucao;
 }

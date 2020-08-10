@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.projecto.saude.Models.Consulta;
+import com.projecto.saude.Models.Funcionario;
 import com.projecto.saude.Repository.ConsultaRepository;
 import com.projecto.saude.service.ConsultaService;
 
@@ -34,7 +35,7 @@ public class ConsultaEndpoint {
 	@GetMapping(value="/listarConsultas")
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView consultaLista() {
-		ModelAndView mv= new ModelAndView("consultaLista");
+		ModelAndView mv= new ModelAndView("listaConsulta");
 		Iterable<Consulta> consultas= dao.findAll();
 		mv.addObject("consultas", consultas);
         return mv;
@@ -49,6 +50,7 @@ public class ConsultaEndpoint {
 		model.addAttribute("consulta", consulta);
 		return "worker";
 	}
+//SAVE
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public String adicionar (Consulta consulta) {
@@ -62,18 +64,15 @@ public class ConsultaEndpoint {
     	cs.saveConsulta(consulta);
 			return "redirect:/dashboard";
 			}**/
-    //UPDATE
+//UPDATE
 
 @GetMapping(value="/updateConsulta/{id}")
- 	@ResponseStatus(HttpStatus.OK)
-	public String editar(@PathVariable (value = "id") long id, Model model) {
-		
-		//GET PACIENTE FROM SERVICE
-		Consulta consulta = cs.getConsultaById(id);
-		//SET PACIENTE AS MODEL ATTRIBUTE TO PRE-POPULATE FORM
-		model.addAttribute("consulta", consulta);
-		return "redirect:/updateConsulta";
-	}
+public ModelAndView editar(@PathVariable("id") long id) {
+	Consulta consulta=cs.getConsultaById(id);
+	ModelAndView mv =new ModelAndView("updateConsulta");
+	mv.addObject("consulta", consulta);
+	return mv;
+}
 //DELETE
     
     @GetMapping(value="/deleteConsulta/{id}")

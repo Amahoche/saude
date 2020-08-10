@@ -59,51 +59,54 @@
                 </div>
 
                 <h3>Cadastrar Funcionario</h3>
+        
                 <a href="/funcionario/listarFuncionarios" ><button class="btn btn-primary" >ListaFuncionarios</button> </a>
-               <form th:action="@{/funcionario}" method="post">
+                  <br>
+                <br>
+               <form th:action="@{/funcionario}" th:object="${funcionario}" method="post" >
   <div class="form-row">
-    <div class="col-md-4 mb-3">
-      <label for="validationDefault01">Primeiro Nome</label>
-      <input type="text" class="form-control" id="validationDefault01" placeholder="Nome" name="nome" required>
-    </div>
-    <div class="col-md-4 mb-3">
-      <label for="validationDefault02">Apelido</label>
-      <input type="text" class="form-control" id="validationDefault02" placeholder="Apelido" name="apelido" required>
-    </div>
-    <div class="col-md-4 mb-3">
-      <label for="validationDefaultUsername">Email</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroupPrepend2"></span>
-        </div>
-        <input type="text" class="form-control" id="validationDefaultUsername" placeholder="Email" name="email"
-        aria-describedby="inputGroupPrepend2" required>
-      </div>
-    </div>
+   
+      <input type="text" class="form-control col-md-4 mb-3"  placeholder="Nome" name="nome" required>
+      <br>
+      <br>
+      <input type="text" class="form-control col-md-4 mb-3" placeholder="Apelido" name="apelido" required>
+      <br>
+      <br>
+      <input type="text" class="form-control col-md-4 mb-3" placeholder="Email" name="email"
+         required>
+      
+  
   </div>
+  <br>
+     <br>
   <div class="form-row">
-    <div class="col-md-6 mb-3">
-      <label for="validationDefault03">Documento</label>
-      <input type="text" class="form-control" id="validationDefault03" placeholder="Documento" name="documento" required>
-    </div>
-    <div class="col-md-6 mb-3">
-      <label for="validationDefault04">Num_Documento</label>
-      <input type="text" class="form-control" id="validationDefault04" placeholder="NumeroDocumento" name="numDoc" required>
-    </div>
+      <input type="date" class="form-control col-md-6 mb-3" placeholder="Data_Nascimento" name="dataNasc" required>
+        <br>
+         <br>
+      <input type="text" class="form-control col-md-6 mb-3" placeholder="Sexo" name="sexo" required>
+   
+  </div>
+    <br>
+     <br>
+  <div class="form-row">
+      <input type="text" class="form-control col-md-6 mb-3" placeholder="Documento" name="documento" required>
+        <br>
+         <br>
+      <input type="text" class="form-control col-md-6 mb-3" placeholder="NumeroDocumento" name="numDoc" required>
+   
     <!--<div class="col-md-3 mb-3">
       <label for="validationDefault05">Email</label>
       <input type="text" class="form-control" id="validationDefault05" placeholder="Email" required>
     </div>-->
-  </div>  
+  </div>
+    <br>
+    <br>  
   <div class="form-row">
-    <div class="col-md-6 mb-3">
-      <label for="validationDefault03">Salario</label>
-      <input type="text" class="form-control" id="validationDefault03" placeholder="Salario" name="salario" >
-    </div>
-    <div class="col-md-6 mb-3">
-      <label for="validationDefault04">Cargo</label>
-      <input type="text" class="form-control" id="validationDefault04" placeholder="Cargo" name="cargo" >
-    </div>
+      <input type="text" class="form-control col-md-6 mb-3" placeholder="Salario" name="salario" >
+      <br>
+      <br>
+      <input type="text" class="form-control col-md-6 mb-3"  placeholder="Cargo" name="cargo" >
+    
    <!--<div class="col-md-6 mb-3">
       <label for="validationDefault01">Especialidade</label>
       <input type="text" class="form-control" id="validationDefault01" placeholder="Especialidade" name="nome" required>

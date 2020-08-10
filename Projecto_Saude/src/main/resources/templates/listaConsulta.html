@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" type="text/css"
     th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
-        <title>Lista Dos Funcionarios</title>
+        <title>Lista Das Consultas</title>
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     </head>
     <body>
@@ -42,12 +42,12 @@
             </nobr>
         </div>
         <br/><br/>
-        
-               
+        <div class="container mb-2">
+              
                 <div class="panel panel-default" style="margin:10px">
               <div class="panel-heading">
-                <h3>Lista dos Funcionarios</h3>
-               <a th:href="@{/worker}" class="btn btn-primary btn-sm mb-3">Adicionar Funcionario</a>
+                 <h3>Consultas Marcadas</h3>
+               <a th:href="@{/form}" class="btn btn-primary btn-sm mb-3">Adicionar Consulta</a>
                 <a th:href="@{/}" class="btn btn-primary btn-sm mb-3" >Home</a><br><br>
               </div>
               <div class="panel-body">
@@ -55,43 +55,33 @@
             <thead>
                 <tr>
                    
-                    <th>Nome</th>
-                    <th>Apelido</th>
-                    <th>Email</th>
-                    <th>DataNascimento</th>
-                    <th>Sexo</th>
-                    <th>Documento</th>
-                    <th>NumDocumento</th>
-                    <th>Cargo</th>
-                    <th>Salario</th>
+                    <th>Sintomas</th>
+                    <th>Data</th>
+                    <th>HoraEntrada</th>
+                    <th>HoraSaida</th>
                     <th>Accoes</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each ="funcionario : ${funcionarios}">
+                <tr th:each ="consulta : ${consultas}">
                      
-                    <td><span th:text="${funcionario.nome}"></span></td>
-                      <td><span th:text="${funcionario.apelido}"></span></td>
-                       <td><span th:text="${funcionario.email}"></span></td>
-                       <td><span th:text="${funcionario.dataNasc}"></span></td>
-                       <td><span th:text="${funcionario.sexo}"></span></td>
-                      <td><span th:text="${funcionario.documento}"></span></td>
-                      <td><span th:text="${funcionario.numDoc}"></span></td>
-                       <td><span th:text="${funcionario.cargo}"></span></td>
-                      <td><span th:text="${funcionario.salario}"></span></td>
+                    <td><span th:text="${consulta.sintomas}"></span></td>
+                      <td><span th:text="${consulta.data}"></span></td>
+                       <td><span th:text="${consulta.horaEntrada}"></span></td>
+                       <td><span th:text="${consulta.horaSaida}"></span></td>
 
-                  <td ><a th:href="@{/funcionario/updateFuncionario/{id}(id=${funcionario.id})}" class="btn btn-info btn-sm mb-3"><span class="glyphicon glyphicon-pencil"></span></a>
+                  <td ><a th:href="@{/consulta/updateConsulta/{id}(id=${consulta.id})}" class="btn btn-info btn-sm mb-3"><span class="glyphicon glyphicon-pencil"></span></a>
                  
-                        <a th:href="@{/funcionario/deleteFuncionario/{id}(id=${funcionario.id})}" class="btn btn-danger btn-sm mb-3"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a th:href="@{/consulta/deleteConsulta/{id}(id=${consulta.id})}" class="btn btn-danger btn-sm mb-3"><span class="glyphicon glyphicon-trash"></span></a>
                         
                  
                   </td>
                         
                 </tr>
                 </tbody>
-            </table>
+            </table> 
             </div>
-            </div> 
+            </div>
             <!-- PAGINATION --> 
             <div th:if = "${totalPages > 1}" >
                     <div class="row col-sm-10">
@@ -121,7 +111,7 @@
             
             </div>
                     
-      
+      </div>
         <br/><br/>
         
         <!-- HABILITAR PAGINACAO -->

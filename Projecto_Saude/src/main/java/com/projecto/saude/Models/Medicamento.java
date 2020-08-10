@@ -1,11 +1,14 @@
 package com.projecto.saude.Models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -22,28 +25,25 @@ public class Medicamento implements Serializable {
 	@GeneratedValue(strategy= GenerationType.AUTO)
 
 	private long id;
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Medicamento other = (Medicamento) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-
 	private String nomeMedicamento;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<MedicamentoPaciente> medicamentosPacientes;
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getNomeMedicamento() {
+		return nomeMedicamento;
+	}
+	public void setNomeMedicamento(String nomeMedicamento) {
+		this.nomeMedicamento = nomeMedicamento;
+	}
+	public List<MedicamentoPaciente> getMedicamentosPacientes() {
+		return medicamentosPacientes;
+	}
+	public void setMedicamentosPacientes(List<MedicamentoPaciente> medicamentosPacientes) {
+		this.medicamentosPacientes = medicamentosPacientes;
+	}
 }

@@ -1,16 +1,20 @@
 package com.projecto.saude.Models;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.springframework.validation.annotation.Validated;
-
-import lombok.Getter;
-import lombok.Setter;
 
 @Validated
 @Entity
@@ -22,7 +26,24 @@ public class Consulta implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
+	private String sintomas;
+	private String data;
+	private String horaEntrada;
+	private String horaSaida;
 	
+	@ManyToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+	@JoinTable(name ="consulta_paciente", 
+	joinColumns = {@JoinColumn(name="consulta_id")},
+	inverseJoinColumns = {@JoinColumn( name = "paciente_id")}
+	)
+	private Set<Paciente> pacientes;
+	
+	public Set<Paciente> getPacientes() {
+		return pacientes;
+	}
+	public void setPacientes(Set<Paciente> pacientes) {
+		this.pacientes = pacientes;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -43,11 +64,6 @@ public class Consulta implements Serializable {
 			return false;
 		return true;
 	}
-	private String consulta;
-	private String evolucao;
-	private String materialUtil;
-	private Double valorMaterial;
-	private Double valorTotal;
 
 	public long getId() {
 		return id;
@@ -55,35 +71,30 @@ public class Consulta implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getConsulta() {
-		return consulta;
+	public String getSintomas() {
+		return sintomas;
 	}
-	public void setConsulta(String consulta) {
-		this.consulta = consulta;
+	public void setSintomas(String sintomas) {
+		this.sintomas = sintomas;
 	}
-	public String getEvolucao() {
-		return evolucao;
+	public String getData() {
+		return data;
 	}
-	public void setEvolucao(String evolucao) {
-		this.evolucao = evolucao;
+	public void setData(String data) {
+		this.data = data;
 	}
-	public String getMaterialUtil() {
-		return materialUtil;
+	public String getHoraEntrada() {
+		return horaEntrada;
 	}
-	public void setMaterialUtil(String materialUtil) {
-		this.materialUtil = materialUtil;
+	public void setHoraEntrada(String horaEntrada) {
+		this.horaEntrada = horaEntrada;
 	}
-	public Double getValorMaterial() {
-		return valorMaterial;
+	public String getHoraSaida() {
+		return horaSaida;
 	}
-	public void setValorMaterial(Double valorMaterial) {
-		this.valorMaterial = valorMaterial;
+	public void setHoraSaida(String horaSaida) {
+		this.horaSaida = horaSaida;
 	}
-	public Double getValorTotal() {
-		return valorTotal;
-	}
-	public void setValorTotal(Double valorTotal) {
-		this.valorTotal = valorTotal;
-	}
+
 
 }

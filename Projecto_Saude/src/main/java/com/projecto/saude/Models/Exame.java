@@ -2,10 +2,13 @@ package com.projecto.saude.Models;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -21,28 +24,23 @@ public class Exame implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private long id;
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Exame other = (Exame) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
 	private String nome;
 	private String descricao;
+	@OneToOne(cascade = CascadeType.ALL)
+	private ResultadoExame resultadoExame;
+	public ResultadoExame getResultadoExame() {
+		return resultadoExame;
+	}
+	public void setResultadoExame(ResultadoExame resultadoExame) {
+		this.resultadoExame = resultadoExame;
+	}
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Paciente pacientes;
+	public Paciente getPacientes() {
+		return pacientes;
+	}
+	public void setPacientes(Paciente pacientes) {
+		this.pacientes = pacientes;
+	}
 
 }
