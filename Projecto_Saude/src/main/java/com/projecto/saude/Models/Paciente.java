@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.criteria.CriteriaBuilder;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
@@ -65,6 +66,10 @@ public class Paciente extends Pessoa{
 	}
 	public void setTelfConjuge(String telfConjuge) {
 		this.telfConjuge = telfConjuge;
+	}
+	public static CriteriaBuilder getCriteriaBuilder() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

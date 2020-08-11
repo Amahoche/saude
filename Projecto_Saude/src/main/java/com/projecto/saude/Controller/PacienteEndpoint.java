@@ -3,12 +3,12 @@ package com.projecto.saude.Controller;
 
 
 
-import java.util.List;
+
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -93,31 +93,21 @@ public class PacienteEndpoint {
 		return mv;
 
 	}**/
+    //PESQUISA POR NOME
     @GetMapping("/pesquisaPaciente")
 	public ModelAndView pesquisar(PacienteFiltro pacientefiltro, BindingResult result,
 			@PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
-		ModelAndView mv = new ModelAndView("paciente/pesquisaPaciente");
+		ModelAndView mv = new ModelAndView("lista");
 
 		PageWrapper<Paciente> paginaWrapper = new PageWrapper<Paciente>();
-		mv.addObject("pagina", paginaWrapper);
+		mv.addObject("pacientefiltro", paginaWrapper);
+		//mv.addObject("pagina", paginaWrapper);
 
 		return mv;
 
 	}
 
-   //PAGINATION METHOD 
-    @GetMapping(value="/page/{pageNo}")
-    public String findPaginated(@PathVariable (value= "pageNo") int pageNo, Model model) {
-    	int pageSize = 5;
-    	Page<Paciente> page = ps.findPaginated(pageNo, pageSize);
-    	List<Paciente> listPacientes = page.getContent();
-    	model.addAttribute("currentPage", pageNo);
-    	model.addAttribute("totalPage", page.getTotalPages());
-    	model.addAttribute("totalItems", page.getTotalElements());
-    	model.addAttribute("listPacientes", listPacientes);
-    
-    	return "paciente/listarPacientes";
-    }
+   
      
     
 }

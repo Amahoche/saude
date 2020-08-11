@@ -50,7 +50,7 @@
                     <br>
               <div class="panel panel-default" style="margin:10px">
                  <!-- FORM DE PESQUISA -->
-                <form th:action="@{/paciente/pesquisaPaciente}" class="form-inline" method="POST" style="margin: 20px 0">
+                <form th:action="@{/paciente/pesquisaPaciente}" class="form-inline" method="GET" style="margin: 20px 0">
                 <div class="form-group">
                 <input type="text" class="form-control"
                         placeholder="Qual nome deseja?" name="nomepesquisa"/>
@@ -72,10 +72,10 @@
                     <th>Nome</th>
                     <th>Apelido</th>
                     <th>Email</th>
-                    <th>DataNascimento</th>
+                    <th>DataNasc</th>
                     <th>Sexo</th>
-                    <th>Documento</th>
-                    <th>NumDocumento</th>
+                    <th>Doc</th>
+                    <th>NumDoc</th>
                     <th>Conjuge</th>
                     <th>TelfConjuge</th>
                     <th>Accoes</th>
@@ -104,25 +104,33 @@
             </div>
             </div> 
             <!-- PAGINATION --> 
-              <div class="col-sm-12  text-center" th:if="${not pagina.vazia}">
-            <nav>
-                <ul class="pagination  pagination-sm" th:with="paginaAtual=${pagina.atual}">
-                    <li th:class="${pagina.primeira} ? disabled">
-                        <a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag"><span>&laquo;</span></a>
-                    </li>
-
-                    <th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p - 1}">
-                        <li th:class="${paginaAtual == numeroPagina} ? active">
-                            <a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
-                        </li>
-                    </th:block>                     
-
-                    <li th:class="${pagina.ultima} ? disabled">
-                        <a th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag"><span>&raquo;</span></a>
-                    </li>
-                </ul>
-            </nav>
-        </div> 
+            <div th:if = "${totalPages > 1}" >
+		            <div class="row col-sm-10">
+		                   <div class="row col-sm-2">
+		                      Total Rows: [[${totalItems}]]
+		                   </div>
+		                    <div class="row col-sm-1">
+		                    <span th:each="${#numbers.sequence(1, totalPages)}">
+		                    <a th:if="${currentPage != i}" th:href="@{'/page' +${i}}">[[${i}]]</a>
+		                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+		                    
+		                    </span>
+		                    
+		                    </div>
+		                     <div class="row col-sm-1">
+		                     <a th:if="${currentPage < totalPages}" th:href="@{'/page' + ${currentPage + 1}}">Next</a>
+		                     <span th:unless="${currentPage < totalPages}">Next</span>
+		                     </div>
+		                     
+		                     <div class="row col-sm-1">
+                             <a th:if="${currentPage < totalPages}" th:href="@{'/page' + ${totalPages}}">Last</a>
+                             <span th:unless="${currentPage < totalPages}">Last</span>
+                             </div>
+		            
+		            </div>
+            
+            
+            </div>
                     
         
         <br/><br/>

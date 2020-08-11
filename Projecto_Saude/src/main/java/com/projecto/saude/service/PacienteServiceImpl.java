@@ -4,25 +4,21 @@ package com.projecto.saude.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.criteria.CriteriaBuilder;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.AbstractPageRequest;
-//import org.springframework.boot.web.servlet.server.Session;
-
 import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
 import com.projecto.saude.Models.Paciente;
 import com.projecto.saude.Repository.PacienteFiltro;
 import com.projecto.saude.Repository.PacienteRepository;
@@ -71,37 +67,41 @@ public class PacienteServiceImpl implements PacienteService{
 		return dao.findAll(pageable);
 	}
 
-	@Override
-	public Page<Paciente> filtrar(PacienteFiltro filtro, java.awt.print.Pageable pageable) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Paciente.class);
+@Override
+	public void filtrar(PacienteFiltro filtro, java.awt.print.Pageable pageable) {
+	CriteriaBuilder builder = Paciente.getCriteriaBuilder();
 
+	javax.persistence.criteria.CriteriaQuery<Paciente> criteria = builder.createQuery( Paciente.class );
 		int paginaAtual = ((Pageable) pageable).getPageNumber();
 		int totalRegistrosPorPagina = ((Pageable) pageable).getPageSize();
 		int primeiroRegistro = paginaAtual * totalRegistrosPorPagina;
 
-		criteria.setFirstResult(primeiroRegistro);
-		criteria.setMaxResults(totalRegistrosPorPagina);
+		((Criteria) criteria).setFirstResult(primeiroRegistro);
+		((Criteria) criteria).setMaxResults(totalRegistrosPorPagina);
 
 		Sort sort = ((Pageable) pageable).getSort();
 		if (sort != null) {
 			Sort.Order order = sort.iterator().next();
 			String property = order.getProperty();
-			criteria.addOrder(order.isAscending() ? Order.asc(property) : Order.desc(property));
+			((Criteria) criteria).addOrder(order.isAscending() ? Order.asc(property) : Order.desc(property));
 		}
-		adicionarFiltro(filtro, criteria);
+		adicionarFiltro(filtro, (CriteriaQuery) criteria);
 		// new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}	
+	@SuppressWarnings("unused")
 	private Long total(PacienteFiltro filtro) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Paciente.class);
-		adicionarFiltro(filtro, criteria);
-		criteria.setProjection(Projections.rowCount());
-		return (Long) criteria.uniqueResult();
+		CriteriaBuilder builder = Paciente.getCriteriaBuilder();
+
+		javax.persistence.criteria.CriteriaQuery<Paciente> criteria = builder.createQuery( Paciente.class );
+		adicionarFiltro(filtro, (CriteriaQuery) criteria);
+		((Criteria) criteria).setProjection(Projections.rowCount());
+		return (Long) ((Criteria) criteria).uniqueResult();
 	}
 	
 	
-	private void adicionarFiltro(PacienteFiltro filtro, Criteria criteria) {
+	private void adicionarFiltro(PacienteFiltro filtro, CriteriaQuery criteria) {
 		if (!StringUtils.isEmpty(filtro.getNome())) {
-			criteria.add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
+			((Criteria) criteria).add(Restrictions.ilike("nome", filtro.getNome(), MatchMode.ANYWHERE));
 		}
 	}
 		

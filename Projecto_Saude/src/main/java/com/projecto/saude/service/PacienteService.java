@@ -2,7 +2,7 @@ package com.projecto.saude.service;
 
 import java.awt.print.Pageable;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.data.domain.Page;
 
@@ -21,7 +21,7 @@ public interface PacienteService {
 	//PAGINATION
 	Page<Paciente> findPaginated(int pageNo, int pageSize);
 	//FILTRO
-	public Page<Paciente> filtrar(PacienteFiltro filtro, Pageable pageable);
+	public void filtrar(PacienteFiltro filtro, Pageable pageable);
 	//Optional<Paciente> getByNomeIgnoreCaseContaining(String nome);
 
 }
