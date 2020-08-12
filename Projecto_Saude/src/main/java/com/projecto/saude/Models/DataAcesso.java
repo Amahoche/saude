@@ -1,13 +1,13 @@
 package com.projecto.saude.Models;
 
 import java.io.Serializable;
-import java.util.Calendar;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
 import lombok.Getter;
@@ -20,7 +20,8 @@ public class DataAcesso implements Serializable {
 	public static final long serialVersionUID=1L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	
 	private long id;
 	private String acesso;

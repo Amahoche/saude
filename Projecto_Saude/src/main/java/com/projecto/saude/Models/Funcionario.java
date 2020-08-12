@@ -1,7 +1,9 @@
 package com.projecto.saude.Models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -18,6 +20,14 @@ public class Funcionario extends Pessoa{
 	
 	private String cargo;
 	private Double salario;
+	@ManyToOne(cascade= CascadeType.ALL)
+	private Especialidade especialidades;
+	public Especialidade getEspecialidades() {
+		return especialidades;
+	}
+	public void setEspecialidades(Especialidade especialidades) {
+		this.especialidades = especialidades;
+	}
 	public String getCargo() {
 		return cargo;
 	}

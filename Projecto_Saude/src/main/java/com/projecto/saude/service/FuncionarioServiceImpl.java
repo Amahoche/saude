@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.projecto.saude.Models.Especialidade;
+
 import com.projecto.saude.Models.Funcionario;
 import com.projecto.saude.Repository.EspecialidadeRepository;
 import com.projecto.saude.Repository.FuncionarioRepository;
@@ -17,8 +17,6 @@ import com.projecto.saude.Repository.FuncionarioRepository;
 public class FuncionarioServiceImpl implements FuncionarioService{
 	@Autowired
 	private FuncionarioRepository dao;
-	@Autowired
-	private EspecialidadeRepository er;
 //LIST ALL
 	@Override
 	public List<Funcionario> getAllFuncionarios() {
