@@ -10,13 +10,16 @@ import javax.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Validated
 @Entity
-@Getter
-@Setter
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Tratamento  implements Serializable{
 	public static final long serialVersionUID=1L;
 
@@ -27,6 +30,5 @@ public class Tratamento  implements Serializable{
 	private long id;
 	private String dataInicio;
 	private String dataFim;
-	private String problema;
 	private String evolucao;
 }

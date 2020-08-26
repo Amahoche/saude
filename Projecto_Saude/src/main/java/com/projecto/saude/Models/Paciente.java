@@ -1,59 +1,40 @@
 package com.projecto.saude.Models;
 
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
+import java.util.List;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.criteria.CriteriaBuilder;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 
-import com.projecto.saude.Repository.PacienteFiltro;
-
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Validated
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @DiscriminatorValue(value = "Paciente")
 public class Paciente extends Pessoa{
 
-	
+	private static final long serialVersionUID = 1L;
 	private String conjuge;
 	private String telfConjuge;
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Medicamento> medicamentos;
-	public List<Medicamento> getMedicamentos() {
-		return medicamentos;
-	}
-	public void setMedicamentos(List<Medicamento> medicamentos) {
-		this.medicamentos = medicamentos;
-	}
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Exame> exames;
-	public List<Exame> getExames() {
-		return exames;
-	}
-	public void setExames(List<Exame> exames) {
-		this.exames = exames;
-	}
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "pacientes")
-			
-	private Set<Consulta> consultas;
+	@ManyToOne
+	@JoinColumn(name="cidade_id", insertable=false, updatable=false)
+	private Cidade cidade;
 	
-	public Set<Consulta> getConsultas() {
-		return consultas;
+	public Cidade getCidade() {
+		return cidade;
 	}
-	public void setConsultas(Set<Consulta> consultas) {
-		this.consultas = consultas;
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
 	}
 	public String getConjuge() {
 		return conjuge;
@@ -67,10 +48,8 @@ public class Paciente extends Pessoa{
 	public void setTelfConjuge(String telfConjuge) {
 		this.telfConjuge = telfConjuge;
 	}
-	public static CriteriaBuilder getCriteriaBuilder() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@OneToMany
+	private List<Exame> exames;
 	
 	
 }

@@ -13,12 +13,16 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Validated
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Exame implements Serializable {
 	public static final long serialVersionUID=1L;
 
@@ -28,21 +32,9 @@ public class Exame implements Serializable {
 	private long id;
 	private String nome;
 	private String descricao;
-	@OneToOne(cascade = CascadeType.ALL)
-	private ResultadoExame resultadoExame;
-	public ResultadoExame getResultadoExame() {
-		return resultadoExame;
-	}
-	public void setResultadoExame(ResultadoExame resultadoExame) {
-		this.resultadoExame = resultadoExame;
-	}
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Paciente pacientes;
-	public Paciente getPacientes() {
-		return pacientes;
-	}
-	public void setPacientes(Paciente pacientes) {
-		this.pacientes = pacientes;
-	}
+	private String resultado;
+	@ManyToOne
+	private Paciente paciente;
+	
 
 }

@@ -18,29 +18,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                    .antMatchers(
-                            "/registration**",
-                            "/js/**",
-                            "/css/**",
-                            "/img/**",
-                            "/webjars/**").permitAll()
-                    .anyRequest().authenticated()
-                .and()
-                    .formLogin()
-                        .loginPage("/login")
-                            .permitAll()
-                .and()
-                    .logout()
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login?logout")
-                .permitAll();
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+		.csrf().disable()
+		.authorizeRequests()
+		.antMatchers("/login", "/resources/**", "/css/**", "/fonts/**", "/img/**").permitAll()
+		.antMatchers("/register", "/resources/**", "/css/**", "/fonts/**", "/img/**", "/js/**").permitAll()
+		.antMatchers("usuarios/adicionar").permitAll()
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.loginPage("/login").permitAll()
+		.and()
+		.logout().invalidateHttpSession(true)
+		.clearAuthentication(true)
+		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutSuccessUrl("/login").permitAll();
+	}
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){

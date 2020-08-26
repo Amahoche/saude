@@ -13,39 +13,25 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Validated
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Medicamento implements Serializable {
 	public static final long serialVersionUID=1L;
-
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
 
 	private long id;
-	private String nomeMedicamento;
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<MedicamentoPaciente> medicamentosPacientes;
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getNomeMedicamento() {
-		return nomeMedicamento;
-	}
-	public void setNomeMedicamento(String nomeMedicamento) {
-		this.nomeMedicamento = nomeMedicamento;
-	}
-	public List<MedicamentoPaciente> getMedicamentosPacientes() {
-		return medicamentosPacientes;
-	}
-	public void setMedicamentosPacientes(List<MedicamentoPaciente> medicamentosPacientes) {
-		this.medicamentosPacientes = medicamentosPacientes;
-	}
+	private String nome;
+	private String dosagem;
+	private String posologia;
+	
 }

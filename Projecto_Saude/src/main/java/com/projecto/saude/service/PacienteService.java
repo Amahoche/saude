@@ -1,27 +1,36 @@
 package com.projecto.saude.service;
-
-import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 
-
-import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.projecto.saude.Models.Paciente;
-import com.projecto.saude.Repository.PacienteFiltro;
+import com.projecto.saude.Repository.PacienteRepository;
+@Service
 
-public interface PacienteService {
-//LIST ALL
-	List<Paciente> getAllPacientes();
-	//SAVE
-	void savePaciente(Paciente paciente);
-	//UPDATE
-	Paciente getPacienteById(long id);
+public class PacienteService {
+	
+	@Autowired PacienteRepository pr;
+	//LIST ALL
+	public List<Paciente> getPacientes(){
+		return pr.findAll();
+	}
+	//SAVE TO DB
+	public void save(Paciente paciente) {
+		pr.save(paciente);
+	}
+	//LIST ONE BY OWN ID
+	public Optional<Paciente> findById(long id) {
+		return pr.findById(id);
+	}
 	//DELETE
-	void deletePacienteById(long id);
-	//PAGINATION
-	Page<Paciente> findPaginated(int pageNo, int pageSize);
-	//FILTRO
-	public void filtrar(PacienteFiltro filtro, Pageable pageable);
-	//Optional<Paciente> getByNomeIgnoreCaseContaining(String nome);
+	public void deleteById(Long id) {
+		pr.deleteById(id);
 
+	}
+	public Object findByUsername(String un) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

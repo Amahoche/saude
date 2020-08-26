@@ -17,10 +17,15 @@ import javax.persistence.ManyToMany;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Validated
 @Entity
-//@Getter
-//@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Consulta implements Serializable {
 	public static final long serialVersionUID=1L;
 
@@ -32,41 +37,6 @@ public class Consulta implements Serializable {
 	private String data;
 	private String horaEntrada;
 	private String horaSaida;
-	
-	@ManyToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
-	@JoinTable(name ="consulta_paciente", 
-	joinColumns = {@JoinColumn(name="consulta_id")},
-	inverseJoinColumns = {@JoinColumn( name = "paciente_id")}
-	)
-	private Set<Paciente> pacientes;
-	
-	public Set<Paciente> getPacientes() {
-		return pacientes;
-	}
-	public void setPacientes(Set<Paciente> pacientes) {
-		this.pacientes = pacientes;
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Consulta other = (Consulta) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -97,6 +67,6 @@ public class Consulta implements Serializable {
 	public void setHoraSaida(String horaSaida) {
 		this.horaSaida = horaSaida;
 	}
-
+	
 
 }

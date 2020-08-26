@@ -1,4 +1,5 @@
 package com.projecto.saude.Models;
+/**package com.app.boot.Models;
 
 import java.io.Serializable;
 
@@ -7,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
 import lombok.Getter;
@@ -20,10 +20,10 @@ public class ResultadoExame implements Serializable {
 	public static final long serialVersionUID=1L;
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	
 	private long id;
 	private String resultado;
 
 }
+**/

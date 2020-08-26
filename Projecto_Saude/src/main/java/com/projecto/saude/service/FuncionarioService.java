@@ -1,29 +1,35 @@
 package com.projecto.saude.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import org.springframework.data.domain.Page;
-
-import com.projecto.saude.Models.Especialidade;
 import com.projecto.saude.Models.Funcionario;
+import com.projecto.saude.Repository.FuncionarioRepository;
 
+@Service
 
-
-public interface FuncionarioService {
+public class FuncionarioService {
+	@Autowired private FuncionarioRepository fr;
+	
 	//LIST ALL
-		List<Funcionario> getAllFuncionarios();
-		//SAVE
-		void saveFuncionario(Funcionario funcionario);
-		//UPDATE
-		Funcionario getFuncionarioById(long id);
+		public List<Funcionario> getFuncionarios(){
+			return fr.findAll();
+		}
+		//SAVE TO DB
+		public void save(Funcionario funcionario) {
+			fr.save(funcionario);
+		}
+		//LIST ONE BY OWN ID
+		public Optional<Funcionario> findById(long id) {
+			return fr.findById(id);
+		}
 		//DELETE
-		void deleteFuncionarioById(long id);
-		//SAVE ALL
-		//Especialidade getFuncionarioByNome(Funcionario funcionario);
-		//Iterable <Especialidade> findByFuncionario(Funcionario funcionario);
-		
-		//PAGINATION
-		Page<Funcionario> findPaginated(int pageNo, int pageSize);
+		public void deleteById(Long id) {
+			fr.deleteById(id);
+
+		}
 
 }
